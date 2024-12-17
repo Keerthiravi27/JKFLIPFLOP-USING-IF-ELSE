@@ -36,13 +36,48 @@ The maximum possible groupings of adjacent ones are already shown in the figure.
 
 /* write all the steps invloved */
 
-**PROGRAM**
+**PROGRAM**!
+module jk__flipflop (
+    input clk,    // Clock signal
+    input reset,  // Active-high reset signal
+    input j,      // J input
+    input k,      // K input
+    output reg q, // Output
+    output reg q_bar // Complement of output
+);
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            q <= 1'b0;       // Reset the flip-flop
+            q_bar <= 1'b1;   // Complement output
+        end
+        else begin
+            case ({j, k})
+                2'b00: ;              // No change
+                2'b01: begin          // Reset
+                    q <= 1'b0;
+                    q_bar <= 1'b1;
+                end
+                2'b10: begin          // Set
+                    q <= 1'b1;
+                    q_bar <= 1'b0;
+                end
+                2'b11: begin          // Toggle
+                    q <= ~q;
+                    q_bar <= ~q_bar;
+                end
+            endcase
+        end
+    end
+endmodule
 
-/* Program for flipflops and verify its truth table in quartus using Verilog programming. Developed by: RegisterNumber:
+/* Program for flipflops and verify its truth table in quartus using Verilog programming. Developed by:KEERTHANA R RegisterNumber:24900170
 */
 
 **RTL LOGIC FOR FLIPFLOPS**
+![Screenshot (205)](https://github.com/user-attachments/assets/468237cc-5d75-4f7c-b70c-d127de5d4964)
 
 **TIMING DIGRAMS FOR FLIP FLOPS**
+![WhatsApp Image 2024-12-17 at 11 49 29_f23c80ac](https://github.com/user-attachments/assets/ded283ac-0c1a-4164-9f8d-e502fd241571)
 
 **RESULTS**
+Thus,the JK flipflop is implemented using verilog and validating ther functionality using function tables are done.
